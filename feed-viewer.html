@@ -4,15 +4,17 @@
   <title>My Page</title>
   <style>
     body {
-      background-color: black;
-      color: white;
+      background-color: #002b36;
+      color: #839496;
+      font-family: monospace;
     }
   </style>
 </head>
 <body>
   <div id="posts"></div>
   <script>
-    fetch('https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json')
+    const feedUrl = 'https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json';
+    fetch(feedUrl)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -20,7 +22,6 @@
         var posts = '';
         for (var i = 0; i < items.length; i++) {
           var post = '<div class="post">';
-          post += '<h2>' + items[i].title + '</h2>';
           post += '<p>' + items[i].content_text + '</p>';
           post += '</div>';
           posts += post;
