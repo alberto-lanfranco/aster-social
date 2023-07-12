@@ -29,6 +29,7 @@
 <body>
   <div class="container">
     <h1 id="title"></h1>
+    <img id="avatar" src="" alt="avatar of the author" width="200" style="border-radius: 25px;"/>
     <div id="posts"></div>
   </div>
   <script>
@@ -45,8 +46,10 @@
           post += '</div>';
           posts += post;
         }
+
         document.getElementById('posts').innerHTML = posts;
         document.getElementById('title').innerHTML = data.title;
+        document.getElementById('avatar').src = data.authors[0].avatar;
 
         document.title = data.title;
       });
