@@ -4,14 +4,19 @@
   <title>My Page</title>
   <style>
     body {
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background-color: #002b36;
       color: #839496;
       font-family: monospace;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* changed from center to flex-start */
       height: 100vh;
-      margin: 0;
     }
     .container {
       display: flex;
@@ -42,7 +47,6 @@
         document.getElementById('posts').innerHTML = posts;
         document.getElementById('title').innerHTML = data.title;
 
-        // add this line
         document.title = data.title;
       });
   </script>
