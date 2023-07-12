@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>My Page</title>
+</head>
 <body>
-
-<h2>JSON Posts</h2>
-
-<p id="demo"></p>
-
-<script>
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var myObj = JSON.parse(this.responseText);
-    var txt = "";
-    for (var x in myObj) {
-      txt += "<h3>" + myObj[x].title + "</h3>";
-      txt += "<p>" + myObj[x].body + "</p>";
-    }
-    document.getElementById("demo").innerHTML = txt;
-  }
-};
-xmlhttp.open("GET", "https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json", true);
-xmlhttp.send();
-</script>
-
+  <script>
+    fetch('https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        var items = data.items;
+        var contentText = '';
+        for (var i = 0; i < items.length; i++) {
+          contentText += items[i].content_text + '<br>';
+        }
+        document.body.innerHTML = contentText;
+      });
+  </script>
 </body>
 </html>
