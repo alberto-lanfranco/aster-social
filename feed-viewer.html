@@ -31,7 +31,7 @@
     <h1 id="title"></h1>
     <img id="avatar" src="" alt="avatar of the author" width="200" style="border-radius: 25px;"/>
     <div>
-      <blockquote><p id="quote-content"></p></blockquote>
+      <p id="quote-content" style="font-style: italic;"></p>
       <p id="quote-author"></p>
     </div>
     <div id="posts"></div>
@@ -54,7 +54,7 @@
         document.getElementById('posts').innerHTML = posts;
         document.getElementById('title').innerHTML = data.title;
         document.getElementById('avatar').src = data.authors[0].avatar;
-        document.getElementById('quote-author').innerHTML = data.quote.author;
+        document.getElementById('quote-author').innerHTML = '— ' + data.quote.author;
         document.getElementById('quote-content').innerHTML = data.quote.content;
 
         document.title = data.title;
