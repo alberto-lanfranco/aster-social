@@ -10,11 +10,21 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   </style>
 </head>
 <body>
-  <div id="posts"></div>
+  <div class="container">
+    <h1 id="title"></h1>
+    <div id="posts"></div>
+  </div>
   <script>
     const feedUrl = 'https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json';
     fetch(feedUrl)
@@ -30,6 +40,10 @@
           posts += post;
         }
         document.getElementById('posts').innerHTML = posts;
+        document.getElementById('title').innerHTML = data.title;
+
+        // add this line
+        document.title = data.title;
       });
   </script>
 </body>
