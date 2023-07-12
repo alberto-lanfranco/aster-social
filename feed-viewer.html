@@ -4,17 +4,22 @@
   <title>My Page</title>
 </head>
 <body>
+  <div id="posts"></div>
   <script>
-    fetch('https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json')
+    fetch('file.txt')
       .then(response => response.json())
       .then(data => {
         console.log(data);
         var items = data.items;
-        var contentText = '';
+        var posts = '';
         for (var i = 0; i < items.length; i++) {
-          contentText += items[i].content_text + '<br>';
+          var post = '<div class="post">';
+          post += '<h2>' + items[i].title + '</h2>';
+          post += '<p>' + items[i].content_text + '</p>';
+          post += '</div>';
+          posts += post;
         }
-        document.body.innerHTML = contentText;
+        document.getElementById('posts').innerHTML = posts;
       });
   </script>
 </body>
