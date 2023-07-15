@@ -19,11 +19,27 @@
       align-items: flex-start;
       height: 100vh;
     }
+
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+    
+    #contacts-container {
+      width: 100%;
+      text-align: center;
+    }
+
+    a {
+      color: #b58900;
+    }
+
+    hr {
+      border-top: dashed 1px;
+      border-bottom: dashed 1px;
+    }
+
   </style>
 </head>
 <body>
@@ -34,7 +50,11 @@
       <p id="quote-content" style="font-style: italic;"></p>
       <p id="quote-author"></p>
     </div>
-    <div id="contacts"></div>
+    <div id="contacts-container">
+      <hr>
+      <div id="contacts"></div>
+      <hr>
+    </div>
     <div id="posts"></div>
   </div>
   <script>
@@ -74,6 +94,7 @@
 
         document.title = data.title;
       });
+
   </script>
 </body>
 </html>
