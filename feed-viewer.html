@@ -64,7 +64,8 @@
         for (var i = 0; i < contacts.length; i++) {
           contacts_html += `
             <p>
-              <a href="${contacts[i].url}">${contacts[i].symbol + " " + contacts[i].name}</a>
+              ${contacts[i].symbol + " "}
+              <a href="${contacts[i].url}">${contacts[i].name}</a>
             </p>
           `;
         }
