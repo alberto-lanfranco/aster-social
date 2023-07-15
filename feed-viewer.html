@@ -30,10 +30,11 @@
   <div class="container">
     <h1 id="title"></h1>
     <img id="avatar" src="" alt="avatar of the author" width="200" style="border-radius: 25px;"/>
-    <div>
+    <div id="quote">
       <p id="quote-content" style="font-style: italic;"></p>
       <p id="quote-author"></p>
     </div>
+    <div id="contacts"></div>
     <div id="posts"></div>
   </div>
   <script>
@@ -41,7 +42,12 @@
     fetch(feedUrl)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+
+        document.getElementById('title').innerHTML = data.title;
+        document.getElementById('avatar').src = data.authors[0].avatar;
+        document.getElementById('quote-author').innerHTML = '— ' + data.quote.author;
+        document.getElementById('quote-content').innerHTML = data.quote.content;
+
         var items = data.items;
         var posts = '';
         for (var i = 0; i < items.length; i++) {
@@ -52,10 +58,18 @@
         }
 
         document.getElementById('posts').innerHTML = posts;
-        document.getElementById('title').innerHTML = data.title;
-        document.getElementById('avatar').src = data.authors[0].avatar;
-        document.getElementById('quote-author').innerHTML = '— ' + data.quote.author;
-        document.getElementById('quote-content').innerHTML = data.quote.content;
+
+        var contacts = data.contacts;
+        var contacts_html = '';
+        for (var i = 0; i < contacts.length; i++) {
+          contacts_html += `
+            <p>
+              <a href="${contacts[i].url}">${contacts[i].symbol + " " + contacts[i].name}</a>
+            </p>
+          `;
+        }
+
+        document.getElementById('contacts').innerHTML = contacts_html;
 
         document.title = data.title;
       });
