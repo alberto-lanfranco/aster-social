@@ -42,6 +42,14 @@
       border-bottom: dashed 1px;
     }
 
+    .post{
+      margin-right: 3rem;
+    }
+
+    .date_published{
+      color: #839496;
+    }
+
   </style>
 </head>
 <body>
@@ -89,8 +97,8 @@
         var posts = '';
         for (var i = 0; i < items.length; i++) {
           var post = '<div class="post">';
-          post += '<p>' + items[i].date_published + '</p>';
-          post += '<p>' + items[i].content_text + '</p>';
+          post += '<p class="date_published">' + items[i].date_published + '</p>';
+          post += '<p class="content_text">' + items[i].content_text + '</p>';
           post += '</div>';
           posts += post;
         }
