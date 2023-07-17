@@ -65,21 +65,12 @@
       .then(response => response.json())
       .then(data => {
 
+        document.title = data.title;
+
         document.getElementById('title').innerHTML = data.title;
         document.getElementById('avatar').src = data.authors[0].avatar;
         document.getElementById('quote-author').innerHTML = '— ' + data.quote.author;
         document.getElementById('quote-content').innerHTML = data.quote.content;
-
-        var items = data.items;
-        var posts = '';
-        for (var i = 0; i < items.length; i++) {
-          var post = '<div class="post">';
-          post += '<p>' + items[i].content_text + '</p>';
-          post += '</div>';
-          posts += post;
-        }
-
-        document.getElementById('posts').innerHTML = posts;
 
         var contacts = data.contacts;
         var contacts_html = '';
@@ -94,7 +85,18 @@
 
         document.getElementById('contacts').innerHTML = contacts_html;
 
-        document.title = data.title;
+        var items = data.items;
+        var posts = '';
+        for (var i = 0; i < items.length; i++) {
+          var post = '<div class="post">';
+          post += '<p>' + items[i].date_published + '</p>';
+          post += '<p>' + items[i].content_text + '</p>';
+          post += '</div>';
+          posts += post;
+        }
+
+        document.getElementById('posts').innerHTML = posts;
+        
       });
 
   </script>
