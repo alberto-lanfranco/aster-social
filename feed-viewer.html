@@ -28,7 +28,7 @@
       flex-direction: column;
       align-items: center;
     }
-    
+
     #title {
       text-align: center;
       margin-bottom: 0%;
@@ -120,7 +120,7 @@
         var posts = '';
         for (var i = 0; i < items.length; i++) {
           var post = '<div class="post">';
-          post += '<p class="date_published">' + items[i].date_published + '</p>';
+          post += '<p class="date_published">' + format_date_published(items[i].date_published) + '</p>';
           post += '<p class="content_text">' + items[i].content_text + '</p>';
           post += '</div>';
           posts += post;
@@ -129,6 +129,24 @@
         document.getElementById('posts').innerHTML = posts;
 
       });
+
+    function format_date_published(date_published) {
+      // Replace all '-' with '/'
+      date_published = date_published.replaceAll('-', '/');
+
+      // Replace all 'T' with ' '
+      date_published = date_published.replaceAll('T', ' ');
+
+      // Get the index of the last ':'
+      last_colon_index = date_published.lastIndexOf(':');
+
+      // If the index is not -1, then drop everything after the last ':'
+      if (last_colon_index != -1) {
+        date_published = date_published.substring(0, last_colon_index);
+      }
+
+      return date_published;
+    }
 
   </script>
 </body>
