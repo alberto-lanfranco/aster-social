@@ -32,7 +32,7 @@ if (feedUrl) {
                 }
 
                 if (data.authors[0].contacts) {
-
+                    // adding horizontal separator
                     const hrElement = document.createElement('hr');
                     document.getElementById('profile').appendChild(hrElement);
 
@@ -56,7 +56,9 @@ if (feedUrl) {
                 }
 
             }
-
+            
+            // adding horizontal separator
+            const hrElement = document.createElement('hr');
             document.getElementById('profile').appendChild(hrElement);
 
             var items = data.items;
