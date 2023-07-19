@@ -32,6 +32,7 @@ if (feedUrl) {
 
                 if (data.authors[0].contacts) {
                     const authorContacts = document.createElement('div');
+                    authorContacts.id = 'authorContacts'
                     document.getElementById('main-container').appendChild(authorContacts);
                     
                     var contacts_html = '';
