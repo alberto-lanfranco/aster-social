@@ -4,7 +4,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 // Get the value of the 'myVar' parameter
-const myVarValue = urlParams.get('feedUrl');
+const feedUrl = urlParams.get('feedUrl');
 
 if (feedUrl) {
     // Parameter exists and has a value
