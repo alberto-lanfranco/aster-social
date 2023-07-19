@@ -17,24 +17,24 @@ if (feedUrl) {
 
                 const authorName = document.createElement('h1');
                 authorName.innerHTML = data.authors[0].name;
-                document.getElementById('bio').appendChild(authorName);
+                document.getElementById('profile').appendChild(authorName);
 
                 const authorAvatar = document.createElement('img');
                 authorAvatar.id = 'authorAvatar'
                 authorAvatar.src = data.authors[0].avatar;
                 authorAvatar.alt = 'avatar of the author';
-                document.getElementById('bio').appendChild(authorAvatar);
+                document.getElementById('profile').appendChild(authorAvatar);
 
                 if (data.authors[0].bio) {
                     const authorBio = document.createElement('p');
                     authorBio.innerHTML = data.authors[0].bio;
-                    document.getElementById('bio').appendChild(authorBio);
+                    document.getElementById('profile').appendChild(authorBio);
                 }
 
                 if (data.authors[0].contacts) {
                     const authorContacts = document.createElement('div');
                     authorContacts.id = 'authorContacts'
-                    document.getElementById('bio').appendChild(authorContacts);
+                    document.getElementById('profile').appendChild(authorContacts);
                     
                     var contacts_html = '';
                     for (var i = 0; i < data.authors[0].contacts.length; i++) {

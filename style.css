@@ -31,16 +31,12 @@ hr {
     align-items: stretch;
 }
 
-#bio {
+#profile {
     text-align: center;
-}
-
-#authorName {
-    margin-bottom: 0%;
+    gap: 10px;
 }
 
 #authorAvatar {
-    margin: 1.5rem;
     width: 200px;
     border-radius: 25px;
 }
