@@ -1,5 +1,3 @@
-// const feedUrl = 'https://gist.githubusercontent.com/alberto-lanfranco/310aa248f0bdc6c5d8fd428675f000f8/raw/feed.json';
-
 // Get the URL parameters
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -13,25 +11,44 @@ if (feedUrl) {
         .then(response => response.json())
         .then(data => {
 
-            document.title = data.title;
+            // TODO: fall back to title and description if authors is not present
+            if (data.authors && data.authors.length == 1) {
+                document.title = data.authors[0].name;
 
-            document.getElementById('title').innerHTML = data.title;
-            document.getElementById('avatar').src = data.authors[0].avatar;
-            document.getElementById('quote-author').innerHTML = '— ' + data.quote.author;
-            document.getElementById('quote-content').innerHTML = data.quote.content;
+                const authorName = document.createElement('h1');
+                authorName.innerHTML = data.authors[0].name;
+                document.getElementById('main-container').appendChild(authorName);
 
-            var contacts = data.contacts;
-            var contacts_html = '';
-            for (var i = 0; i < contacts.length; i++) {
-                contacts_html += `
-        <p>
-          ${contacts[i].symbol + " "}
-          <a href="${contacts[i].url}">${contacts[i].name}</a>
-        </p>
-      `;
+                const authorAvatar = document.createElement('img');
+                authorAvatar.src = data.authors[0].avatar;
+                authorAvatar.alt = 'avatar of the author';
+                document.getElementById('main-container').appendChild(authorAvatar);
+
+                if (data.authors[0].bio) {
+                    const authorBio = document.createElement('p');
+                    authorBio.innerHTML = data.authors[0].bio;
+                    document.getElementById('main-container').appendChild(authorBio);
+                }
+
+                if (data.authors[0].contacts) {
+                    const authorContacts = document.createElement('div');
+                    document.getElementById('main-container').appendChild(authorContacts);
+
+                    for (var i = 0; i < data.authors[0].contacts.length; i++) {
+
+                        contacts_html += `
+                <p>
+                  ${data.authors[0].contacts[i].symbol + " "}
+                  <a href="${data.authors[0].contacts[i].url}">${data.authors[0].contacts[i].name}</a>
+                </p>
+              `;
+                    }
+
+                    document.getElementById('authorContacts').innerHTML = contacts_html;
+
+                }
+
             }
-
-            document.getElementById('contacts').innerHTML = contacts_html;
 
             var items = data.items;
             var posts = '';
