@@ -66,7 +66,7 @@ if (feedUrl) {
 
 } else {
     // Parameter is missing or has no value, handle this case accordingly
-    document.getElementById('description').innerHTML = 'feed not provided'
+    document.getElementById('main-container').innerHTML = 'feed not provided'
 }
 
 function format_date_published(date_published) {
