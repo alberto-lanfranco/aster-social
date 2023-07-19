@@ -20,7 +20,7 @@ if (feedUrl) {
                 document.getElementById('bio').appendChild(authorName);
 
                 const authorAvatar = document.createElement('img');
-                authorContacts.id = 'authorAvatar'
+                authorAvatar.id = 'authorAvatar'
                 authorAvatar.src = data.authors[0].avatar;
                 authorAvatar.alt = 'avatar of the author';
                 document.getElementById('bio').appendChild(authorAvatar);
