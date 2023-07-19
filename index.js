@@ -33,7 +33,8 @@ if (feedUrl) {
                 if (data.authors[0].contacts) {
                     const authorContacts = document.createElement('div');
                     document.getElementById('main-container').appendChild(authorContacts);
-
+                    
+                    var contacts_html = '';
                     for (var i = 0; i < data.authors[0].contacts.length; i++) {
 
                         contacts_html += `
