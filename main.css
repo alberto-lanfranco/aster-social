@@ -8,7 +8,7 @@ body {
     margin-left: 5%;
     background-color: #002b36;
     color: #fdf6e3;
-    font-family: 'Noto Sans Mono';
+    font-family: 'Fira Mono', monospace;
     font-size: large;
     display: flex;
     justify-content: center;
