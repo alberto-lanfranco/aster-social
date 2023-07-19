@@ -31,8 +31,11 @@ hr {
     align-items: stretch;
 }
 
-#authorName {
+#bio {
     text-align: center;
+}
+
+#authorName {
     margin-bottom: 0%;
 }
 
