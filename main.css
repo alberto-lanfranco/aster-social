@@ -1,0 +1,60 @@
+body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-right: 5%;
+    margin-left: 5%;
+    background-color: #002b36;
+    color: #fdf6e3;
+    font-family: 'Noto Sans Mono';
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title {
+    text-align: center;
+    margin-bottom: 0%;
+}
+
+#avatar {
+    margin: 1.5rem;
+}
+
+#description-container {
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    color: #268bd2;
+}
+
+hr {
+    border-top: dashed 1px;
+    border-bottom: dashed 1px;
+}
+
+.post {
+    margin-top: 3rem;
+}
+
+.date_published {
+    color: #839496;
+    font-size: medium;
+    margin-bottom: 0%;
+}
+
+.content_text {
+    margin-top: 0.2rem;
+}
