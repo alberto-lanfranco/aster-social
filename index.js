@@ -32,6 +32,10 @@ if (feedUrl) {
                 }
 
                 if (data.authors[0].contacts) {
+
+                    const hrElement = document.createElement('hr');
+                    document.getElementById('profile').appendChild(hrElement);
+
                     const authorContacts = document.createElement('div');
                     authorContacts.id = 'authorContacts'
                     document.getElementById('profile').appendChild(authorContacts);
@@ -52,6 +56,8 @@ if (feedUrl) {
                 }
 
             }
+
+            document.getElementById('profile').appendChild(hrElement);
 
             var items = data.items;
             var posts = '';
