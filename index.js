@@ -11,6 +11,7 @@ if (feedUrl) {
         .then(response => response.json())
         .then(data => {
 
+            // TODO atomically look for author name or title, avatar or icon, description or bio, without bundling them together
             if (data.authors && data.authors.length == 1) {
                 document.title = data.authors[0].name;
 
@@ -61,15 +62,20 @@ if (feedUrl) {
                 title.innerHTML = data.title;
                 document.getElementById('profile').appendChild(title);
 
-                const authorAvatar = document.createElement('img');
-                authorAvatar.id = 'authorAvatar'
-                authorAvatar.src = data.icon;
-                authorAvatar.alt = 'avatar of the author';
-                document.getElementById('profile').appendChild(authorAvatar);
+                if (data.icon) {
+                    const authorAvatar = document.createElement('img');
+                    authorAvatar.id = 'authorAvatar'
+                    authorAvatar.src = data.icon;
+                    authorAvatar.alt = 'avatar of the author';
+                    document.getElementById('profile').appendChild(authorAvatar);
+                }
 
-                const description = document.createElement('p');
-                description.innerHTML = data.description;
-                document.getElementById('profile').appendChild(description);
+                if (data.description) {
+                    const description = document.createElement('p');
+                    description.innerHTML = data.description;
+                    document.getElementById('profile').appendChild(description);
+                }
+
             }
             
             // adding horizontal separator
