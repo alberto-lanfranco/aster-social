@@ -11,7 +11,6 @@ if (feedUrl) {
         .then(response => response.json())
         .then(data => {
 
-            // TODO: fall back to title and description if authors is not present
             if (data.authors && data.authors.length == 1) {
                 document.title = data.authors[0].name;
 
@@ -55,6 +54,16 @@ if (feedUrl) {
 
                 }
 
+            } else {
+                document.title = data.title;
+
+                const title = document.createElement('h1');
+                title.innerHTML = data.title;
+                document.getElementById('profile').appendChild(title);
+
+                const description = document.createElement('p');
+                description.innerHTML = data.description;
+                document.getElementById('profile').appendChild(description);
             }
             
             // adding horizontal separator
