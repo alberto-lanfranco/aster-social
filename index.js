@@ -31,7 +31,7 @@ if (feedUrl) {
                     document.getElementById('profile').appendChild(authorBio);
                 } else {
                     const brElement = document.createElement('p');
-                    description.innerHTML = "<br>";
+                    brElement.innerHTML = "<br>";
                     document.getElementById('profile').appendChild(brElement);
                 }
 
@@ -80,7 +80,7 @@ if (feedUrl) {
                     document.getElementById('profile').appendChild(description);
                 } else {
                     const brElement = document.createElement('p');
-                    description.innerHTML = "<br>";
+                    brElement.innerHTML = "<br>";
                     document.getElementById('profile').appendChild(brElement);
                 }
 
