@@ -87,13 +87,8 @@ function format_date_published(date_published) {
     // Replace all 'T' with ' '
     date_published = date_published.replaceAll('T', ' ');
 
-    // Get the index of the last ':'
-    last_colon_index = date_published.lastIndexOf(':');
-
-    // If the index is not -1, then drop everything after the last ':'
-    if (last_colon_index != -1) {
-        date_published = date_published.substring(0, last_colon_index);
-    }
+    // Trim the timestamp to the minute
+    date_published = date_published.substring(0, 16);
 
     return date_published;
 }
