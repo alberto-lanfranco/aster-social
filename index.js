@@ -29,6 +29,9 @@ if (feedUrl) {
                     const authorBio = document.createElement('p');
                     authorBio.innerHTML = data.authors[0].bio;
                     document.getElementById('profile').appendChild(authorBio);
+                } else {
+                    const brElement = document.createElement('br');
+                    document.getElementById('profile').appendChild(brElement);
                 }
 
                 if (data.authors[0].contacts) {
@@ -74,6 +77,9 @@ if (feedUrl) {
                     const description = document.createElement('p');
                     description.innerHTML = data.description;
                     document.getElementById('profile').appendChild(description);
+                } else {
+                    const brElement = document.createElement('br');
+                    document.getElementById('profile').appendChild(brElement);
                 }
 
             }
