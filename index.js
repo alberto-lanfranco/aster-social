@@ -61,6 +61,12 @@ if (feedUrl) {
                 title.innerHTML = data.title;
                 document.getElementById('profile').appendChild(title);
 
+                const authorAvatar = document.createElement('img');
+                authorAvatar.id = 'authorAvatar'
+                authorAvatar.src = data.icon;
+                authorAvatar.alt = 'avatar of the author';
+                document.getElementById('profile').appendChild(authorAvatar);
+
                 const description = document.createElement('p');
                 description.innerHTML = data.description;
                 document.getElementById('profile').appendChild(description);
