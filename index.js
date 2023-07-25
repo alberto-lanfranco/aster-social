@@ -30,7 +30,8 @@ if (feedUrl) {
                     authorBio.innerHTML = data.authors[0].bio;
                     document.getElementById('profile').appendChild(authorBio);
                 } else {
-                    const brElement = document.createElement('br');
+                    const brElement = document.createElement('p');
+                    description.innerHTML = "<br>";
                     document.getElementById('profile').appendChild(brElement);
                 }
 
@@ -78,7 +79,8 @@ if (feedUrl) {
                     description.innerHTML = data.description;
                     document.getElementById('profile').appendChild(description);
                 } else {
-                    const brElement = document.createElement('br');
+                    const brElement = document.createElement('p');
+                    description.innerHTML = "<br>";
                     document.getElementById('profile').appendChild(brElement);
                 }
 
