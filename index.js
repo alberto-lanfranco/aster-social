@@ -21,7 +21,8 @@ if (feedUrl) {
                 const homePageUrl = document.createElement('a');
                 homePageUrl.href = data.home_page_url;
                 homePageUrl.innerHTML = "🔗";
-    
+                
+                title.append(" ");
                 title.append(homePageUrl);
             }
 
