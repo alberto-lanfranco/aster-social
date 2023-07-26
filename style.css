@@ -58,3 +58,7 @@ hr {
 .post_body {
     margin-top: 0.2rem;
 }
+
+.post_body img {
+    max-width: 100%;
+  }
