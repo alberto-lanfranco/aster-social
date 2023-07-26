@@ -61,4 +61,5 @@ hr {
 
 .post_body img {
     max-width: 100%;
+    height: auto;
   }
