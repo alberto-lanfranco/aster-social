@@ -81,6 +81,15 @@ if (feedUrl) {
 
                 post.appendChild(datePublished);
 
+                if (data.items[i].url) {
+                    const postUrl = document.createElement('a');
+                    postUrl.href = data.items[i].url;
+                    postUrl.innerHTML = "🔗";
+                    
+                    datePublished.append(" ");
+                    datePublished.append(postUrl);
+                }
+
                 if (data.items[i].title) {
                     const postTitle = document.createElement('h2');
                     postTitle.classList.add('post_title');
