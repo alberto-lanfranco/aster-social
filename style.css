@@ -31,6 +31,10 @@ hr {
     align-items: stretch;
 }
 
+#main-container {
+    max-width: 500px;
+}
+
 #profile {
     text-align: center;
     gap: 10px;
