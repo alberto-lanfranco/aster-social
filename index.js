@@ -44,19 +44,18 @@ if (feedUrl) {
                 authorContacts.id = 'authorContacts'
                 document.getElementById('profile').appendChild(authorContacts);
 
-                var contacts_html = '';
                 for (var i = 0; i < data.contacts.length; i++) {
+                    const contact = document.createElement('p');
 
-                    contacts_html += `
-            <p>
-              ${data.contacts[i].symbol + " "}
-              <a href="${data.contacts[i].url}">${data.contacts[i].name}</a>
-            </p>
-          `;
+                    contact.append(data.contacts[i].symbol + " ")
+
+                    const contactLink = document.createElement('a');
+                    contactLink.href = data.contacts[i].url;
+                    contactLink.innerHTML = data.contacts[i].name;
+
+                    contact.append(contactLink);
+                    document.getElementById('authorContacts').append(contact);
                 }
-
-                document.getElementById('authorContacts').innerHTML = contacts_html;
-
             }
 
             // adding horizontal separator
