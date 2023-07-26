@@ -100,6 +100,12 @@ if (feedUrl) {
 
                 post.appendChild(datePublished);
 
+                const postTitle = document.createElement('h2');
+                postTitle.classList.add('post_title');
+                postTitle.innerHTML = format_date_published(data.items[i].title)
+
+                post.appendChild(postTitle);
+
                 const postBody = document.createElement('div');
                 postBody.classList.add('post_body');
                 postBody.innerHTML = data.items[i].content_html;
