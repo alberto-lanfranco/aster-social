@@ -90,17 +90,25 @@ if (feedUrl) {
             const hrElement = document.createElement('hr');
             document.getElementById('profile').appendChild(hrElement);
 
-            var items = data.items;
-            var posts = '';
-            for (var i = 0; i < items.length; i++) {
-                var post = '<div class="post">';
-                post += '<p class="date_published">' + format_date_published(items[i].date_published) + '</p>';
-                post += '<p class="content_text">' + items[i].content_text + '</p>';
-                post += '</div>';
-                posts += post;
-            }
+            for (var i = 0; i < data.items.length; i++) {
+                const post = document.createElement('div');
+                post.classList.add('post');
 
-            document.getElementById('posts').innerHTML = posts;
+                const datePublished = document.createElement('div');
+                datePublished.classList.add('date_published');
+                datePublished.innerHTML = format_date_published(data.items[i].date_published)
+
+                post.appendChild(datePublished);
+
+                const postBody = document.createElement('div');
+                postBody.classList.add('post_body');
+                postBody.innerHTML = data.items[i].content_html;
+
+                post.appendChild(postBody);
+
+                document.getElementById('timeline').appendChild(post);
+
+            }
 
         });
 
