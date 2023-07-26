@@ -17,6 +17,14 @@ if (feedUrl) {
             title.innerHTML = data.title;
             document.getElementById('profile').appendChild(title);
 
+            if (data.home_page_url) {
+                const homePageUrl = document.createElement('a');
+                homePageUrl.href = data.home_page_url;
+                homePageUrl.innerHTML = "🔗";
+    
+                title.append(homePageUrl);
+            }
+
             if (data.icon) {
                 const authorAvatar = document.createElement('img');
                 authorAvatar.id = 'authorAvatar'
