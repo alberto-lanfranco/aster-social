@@ -102,7 +102,7 @@ if (feedUrl) {
 
                 const postTitle = document.createElement('h2');
                 postTitle.classList.add('post_title');
-                postTitle.innerHTML = format_date_published(data.items[i].title)
+                postTitle.innerHTML = data.items[i].title
 
                 post.appendChild(postTitle);
 
