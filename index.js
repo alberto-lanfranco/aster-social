@@ -60,7 +60,7 @@ if (feedUrl) {
 
                     const contactLink = document.createElement('a');
                     contactLink.href = data.contacts[i].url;
-                    contactLink.innerHTML = data.contacts[i].name;
+                    contactLink.innerHTML = data.contacts[i].platform;
 
                     contact.append(contactLink);
                     document.getElementById('authorContacts').append(contact);
