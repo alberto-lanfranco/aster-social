@@ -173,13 +173,21 @@ if (feedUrl) {
 
     const buttonElement = document.createElement('button');
     buttonElement.textContent = "⁂";
-    buttonElement.onclick = function () {
+    const loadFeed = function () {
         const enteredUrl = document.getElementById('feedUrlInput').value;
         if (enteredUrl) {
             window.location.search = `?feedUrl=${encodeURIComponent(enteredUrl)}`;
         }
     };
+    buttonElement.onclick = loadFeed;
     inputContainer.appendChild(buttonElement);
+
+    // Event listener for Enter key in text box
+    inputElement.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            loadFeed();
+        }
+    });
 
     // Append the container to mainContainer
     mainContainer.appendChild(inputContainer);
