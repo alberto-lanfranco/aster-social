@@ -140,5 +140,48 @@ if (feedUrl) {
             document.getElementById('main-container').innerHTML = 'Error loading feed';
         });
 } else {
-    document.getElementById('main-container').innerHTML = 'Feed URL not provided';
+
+    // New functionality for when feedUrl is not provided
+    const root_title = "⁂ Aster";
+    document.title = root_title;
+
+    const mainContainer = document.getElementById('main-container');
+    mainContainer.innerHTML = ''; // Clear existing content
+
+    const titleElement = document.createElement('h1');
+    titleElement.textContent = root_title;
+    titleElement.style.textAlign = "center";
+    mainContainer.appendChild(titleElement);
+
+    const instructionElement = document.createElement('p');
+    instructionElement.textContent = "Provide a feed URL";
+    instructionElement.style.textAlign = "center";
+    mainContainer.appendChild(instructionElement);
+
+    // Create a container for the input and button
+    const inputContainer = document.createElement('div');
+    inputContainer.style.display = 'flex';
+    inputContainer.style.justifyContent = 'center';
+    inputContainer.style.alignItems = 'center';
+    inputContainer.style.gap = '10px';
+
+    const inputElement = document.createElement('input');
+    inputElement.type = 'text';
+    inputElement.id = 'feedUrlInput';
+    inputElement.placeholder = 'Enter feed URL here';
+    inputContainer.appendChild(inputElement);
+
+    const buttonElement = document.createElement('button');
+    buttonElement.textContent = "⁂";
+    buttonElement.onclick = function () {
+        const enteredUrl = document.getElementById('feedUrlInput').value;
+        if (enteredUrl) {
+            window.location.search = `?feedUrl=${encodeURIComponent(enteredUrl)}`;
+        }
+    };
+    inputContainer.appendChild(buttonElement);
+
+    // Append the container to mainContainer
+    mainContainer.appendChild(inputContainer);
+
 }
