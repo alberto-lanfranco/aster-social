@@ -1,129 +1,144 @@
-// Get the URL parameters
-const urlParams = new URLSearchParams(window.location.search);
+// Function to parse the front matter
+function parseFrontMatter(feed) {
+    const lines = feed.split('\n');
+    let frontMatter = {};
+    let isFrontMatter = false;
 
-// Get the value of the 'myVar' parameter
+    for (const line of lines) {
+        if (line.startsWith('---')) {
+            if (isFrontMatter) {
+                break;
+            } else {
+                isFrontMatter = true;
+                continue;
+            }
+        }
+
+        if (isFrontMatter) {
+            const index = line.indexOf(':');
+            if (index !== -1) {
+                const key = line.substring(0, index).trim();
+                const value = line.substring(index + 1).trim();
+                frontMatter[key] = value;
+            }
+        }
+    }
+
+    return frontMatter;
+}
+
+// Function to convert markdown-style links to HTML anchors
+function convertMarkdownLinksToHTML(text) {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    return text.replace(linkRegex, (match, text, url) => `<a href="${url}">${text}</a>`);
+}
+
+// Function to parse the feed content
+function parseFeedContent(feed) {
+    const lines = feed.split('\n');
+    let sections = {};
+    let currentSection = '';
+    let currentContent = [];
+
+    lines.forEach(line => {
+        if (line.startsWith('# ')) {
+            if (currentSection) {
+                sections[currentSection] = currentContent.join('\n').trim();
+            }
+            currentSection = line.substring(2).trim();
+            currentContent = [];
+        } else if (currentSection) {
+            currentContent.push(line);
+        }
+    });
+
+    // Add the last section
+    if (currentSection) {
+        sections[currentSection] = currentContent.join('\n').trim();
+    }
+
+    return sections;
+}
+
+// Get the 'feedUrl' parameter from the URL
+const urlParams = new URLSearchParams(window.location.search);
 const feedUrl = urlParams.get('feedUrl');
 
 if (feedUrl) {
-    // Parameter exists and has a value
-
     fetch(feedUrl)
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.text())
+        .then(feedContent => {
+            // Parse the feed
+            const frontMatter = parseFrontMatter(feedContent);
+            const sections = parseFeedContent(feedContent);
 
-            document.title = data.title;
+            // Set the page title and author avatar
+            document.title = frontMatter.title;
 
-            const title = document.createElement('h1');
-            title.innerHTML = data.title;
-            document.getElementById('profile').appendChild(title);
+            // Create and add the title element
+            const titleElement = document.createElement('h1');
+            titleElement.textContent = frontMatter.title;
+            document.getElementById('profile').appendChild(titleElement);
 
-            if (data.home_page_url) {
+            if (frontMatter.home_page_url) {
                 const homePageUrl = document.createElement('a');
-                homePageUrl.href = data.home_page_url;
+                homePageUrl.href = frontMatter.home_page_url;
                 homePageUrl.innerHTML = "🔗";
                 
-                title.append(" ");
-                title.append(homePageUrl);
+                titleElement.append(" ");
+                titleElement.append(homePageUrl);
             }
 
-            if (data.icon) {
-                const authorAvatar = document.createElement('img');
-                authorAvatar.id = 'authorAvatar'
-                authorAvatar.src = data.icon;
-                authorAvatar.alt = 'avatar of the author';
-                document.getElementById('profile').appendChild(authorAvatar);
+            const authorAvatar = document.createElement('img');
+            authorAvatar.id = 'authorAvatar';
+            authorAvatar.src = frontMatter.avatar;
+            authorAvatar.alt = 'avatar of the author';
+            document.getElementById('profile').appendChild(authorAvatar);
+
+            // Populate the about section
+            if (sections['About']) {
+                const aboutElement = document.createElement('div');
+                const aboutLines = sections['About'].split('\n');
+                aboutLines.forEach(line => {
+                    if (line === '---') {
+                        const hr = document.createElement('hr');
+                        aboutElement.appendChild(hr);
+                    } else {
+                        const p = document.createElement('p');
+                        p.innerHTML = convertMarkdownLinksToHTML(line);
+                        aboutElement.appendChild(p);
+                    }
+                });
+                document.getElementById('profile').appendChild(aboutElement);
             }
 
-            if (data.description) {
-                const description = document.createElement('p');
-                description.innerHTML = data.description;
-                document.getElementById('profile').appendChild(description);
-            } else {
-                const brElement = document.createElement('p');
-                brElement.innerHTML = "<br>";
-                document.getElementById('profile').appendChild(brElement);
+            // Populate the posts
+            if (sections['Feed']) {
+                const posts = sections['Feed'].split('\n\n');
+                posts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('post');
+
+                    const [date, content] = post.split('\n', 2);
+                    const dateElement = document.createElement('div');
+                    dateElement.classList.add('date_published');
+                    dateElement.innerHTML = date;
+                    postElement.appendChild(dateElement);
+
+                    const contentElement = document.createElement('div');
+                    contentElement.classList.add('post_body');
+                    contentElement.innerHTML = convertMarkdownLinksToHTML(content);
+                    postElement.appendChild(contentElement);
+
+                    document.getElementById('timeline').appendChild(postElement);
+                });
             }
 
-            if (data.contacts) {
-                // adding horizontal separator
-                const hrElement = document.createElement('hr');
-                document.getElementById('profile').appendChild(hrElement);
-
-                const authorContacts = document.createElement('div');
-                authorContacts.id = 'authorContacts'
-                document.getElementById('profile').appendChild(authorContacts);
-
-                for (var i = 0; i < data.contacts.length; i++) {
-                    const contact = document.createElement('p');
-
-                    contact.append(data.contacts[i].symbol + " ")
-
-                    const contactLink = document.createElement('a');
-                    contactLink.href = data.contacts[i].url;
-                    contactLink.innerHTML = data.contacts[i].platform;
-
-                    contact.append(contactLink);
-                    document.getElementById('authorContacts').append(contact);
-                }
-            }
-
-            // adding horizontal separator
-            const hrElement = document.createElement('hr');
-            document.getElementById('profile').appendChild(hrElement);
-
-            for (var i = 0; i < data.items.length; i++) {
-                const post = document.createElement('div');
-                post.classList.add('post');
-
-                const datePublished = document.createElement('div');
-                datePublished.classList.add('date_published');
-                datePublished.innerHTML = format_date_published(data.items[i].date_published)
-
-                post.appendChild(datePublished);
-
-                if (data.items[i].url) {
-                    const postUrl = document.createElement('a');
-                    postUrl.href = data.items[i].url;
-                    postUrl.innerHTML = "🔗";
-                    
-                    datePublished.append(" ");
-                    datePublished.append(postUrl);
-                }
-
-                if (data.items[i].title) {
-                    const postTitle = document.createElement('h2');
-                    postTitle.classList.add('post_title');
-                    postTitle.innerHTML = data.items[i].title
-
-                    post.appendChild(postTitle);
-                }
-
-                const postBody = document.createElement('div');
-                postBody.classList.add('post_body');
-                postBody.innerHTML = data.items[i].content_html;
-
-                post.appendChild(postBody);
-
-                document.getElementById('timeline').appendChild(post);
-
-            }
-
+        })
+        .catch(error => {
+            console.error('Error fetching the feed:', error);
+            document.getElementById('main-container').innerHTML = 'Error loading feed';
         });
-
 } else {
-    // Parameter is missing or has no value, handle this case accordingly
-    document.getElementById('main-container').innerHTML = 'feed not provided'
-}
-
-function format_date_published(date_published) {
-    // Replace all '-' with '/'
-    date_published = date_published.replaceAll('-', '/');
-
-    // Replace all 'T' with ' '
-    date_published = date_published.replaceAll('T', ' ');
-
-    // Trim the timestamp to the minute
-    date_published = date_published.substring(0, 16);
-
-    return date_published;
+    document.getElementById('main-container').innerHTML = 'Feed URL not provided';
 }
