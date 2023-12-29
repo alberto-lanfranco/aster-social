@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'NotoSansMono';
+    src: url('/fonts/NotoSansMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'NotoSans';
+    src: url('/fonts/NotoSans-Regular.ttf') format('truetype');
+}
+
 body {
     position: absolute;
     top: 0;
@@ -8,7 +18,7 @@ body {
     margin-left: 5%;
     background-color: #002b36;
     color: #fdf6e3;
-    font-family: 'Fira Mono', monospace;
+    font-family: 'NotoSansMono', 'NotoSans', monospace;
     font-size: large;
     display: flex;
     justify-content: center;
